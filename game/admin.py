@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from game.models import Game
+from game.models import *
 
 
 class GameAdmin(admin.ModelAdmin):
@@ -10,4 +10,9 @@ class GameAdmin(admin.ModelAdmin):
         return obj.players.count()
 
 
+class RoundAdmin(admin.ModelAdmin):
+    list_display = ["game", "round"]
+
+
 admin.site.register(Game, GameAdmin)
+admin.site.register(Round, RoundAdmin)

@@ -6,6 +6,13 @@
 </head>
 <body>
 <h1>{{ game.name }}</h1>
+{% if messages %}
+    <ul class="messages">
+        {% for message in messages %}
+            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+        {% endfor %}
+    </ul>
+{% endif %}
 <hr>
 Yes, this needs to go!
 <table>
@@ -13,20 +20,29 @@ Yes, this needs to go!
         <tr>
             <th>Player</th>
             <th>Role</th>
+            <th>Vote</th>
         </tr>
     </thead>
     <tbody>
         {% for player in game.players.all %}
+            {% if player != request.user %}
             <tr>
-            <td>{{ player.username }}</td>
-            <td>{{ player.profile.get_game_role_display }}</td>
+                <td>{{ player.username }}</td>
+                <td>{{ player.profile.get_game_role_display }}</td>
+                <td><a href="/game/{{ game.id }}/vote/{{ player.id }}/">vote</a></td>
             </tr>
+            {% endif %}
         {% endfor %}
     </tbody>
 </table>
 <hr>
 {% if game.players.count >= 3 %}
-    <a href="">Start game!</a>
+    {% if game.game_state == 0 %}
+        <a href="/game/{{ game.id }}/start/">Start game!</a>
+    {% endif %}
+    {% if game.game_state == 1 %}
+        Next round!
+    {% endif %}
 {% endif %}
 </body>
 </html>

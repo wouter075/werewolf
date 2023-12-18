@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from game.views import GameView, NewGameView
+from game.views import *
 from main.views import MainView
 
 urlpatterns = [
@@ -25,6 +25,9 @@ urlpatterns = [
     path('', MainView.as_view(), name='main'),
     path('game/new/', NewGameView.as_view(), name='new-game'),
     path('game/<int:id>/', GameView.as_view(), name='game'),
+    path('game/<int:id>/start/', GameStart.as_view(), name='game-start'),
+    path('game/<int:id>/round/<int:round>/', GameStart.as_view(), name='game-round'),
+    path('game/<int:id>/round/<int:round>/vote/<int:pid>/', GameStart.as_view(), name='game-vote'),
 
 
 ]

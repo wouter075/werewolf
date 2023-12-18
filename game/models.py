@@ -15,3 +15,7 @@ class Game(models.Model):
         return f'[{self.id}] {self.name} - {self.game_state}'
 
 
+class Round(models.Model):
+    game = models.ForeignKey(Game, on_delete=models.CASCADE)
+    round = models.IntegerField(default=1)
+
