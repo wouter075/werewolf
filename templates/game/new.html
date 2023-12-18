@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New game</title>
+</head>
+<body>
+<form method="post" action="/game/new/">
+    {% csrf_token %}
+    <label for="new_game">Game name:</label>
+    <input id="new_game" type="text" name="name"><br>
+    <label for="max_players">Max players:</label>
+    <input id="max_players" type="number" name="max" value="10"><br>
+    
+    <input type="submit" value="New game">
+</form>
+
+</body>
+</html>

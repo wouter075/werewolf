@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Game: {{ game.name }}</title>
+</head>
+<body>
+<h1>{{ game.name }}</h1>
+<table>
+    <thead>
+        <tr>
+            <th>Player</th>
+            <th>Role</th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr>
+            {% for player in game.players.all %}
+                <td>{{ player.username }}</td>
+                <td>{{ player.profile.get_game_role_display }}</td>
+            {% endfor %}
+        </tr>
+    </tbody>
+</table>
+
+</body>
+</html>
