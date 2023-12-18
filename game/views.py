@@ -28,8 +28,10 @@ class NewGameView(View):
 
     def post(self, request):
         # check if user is admin in active game
-        admin_count = Game.objects.filter(game_admin=request.user, game_state__gt=0).count()
-        game_count = Game.objects.filter(players=request.user, game_state__gt=0).count()
+        admin_count = Game.objects.filter(game_admin=request.user).exclude(game_state=2).count()
+
+        # check if user is in any active game
+        game_count = Game.objects.filter(players=request.user).exclude(game_state=2).count()
 
         if admin_count > 0 or game_count > 0:
             messages.error(request, "Already in a game")
@@ -37,7 +39,11 @@ class NewGameView(View):
         name = request.POST.get('name')
         max_players = request.POST.get('max')
 
-        # todo check for name and max is number
+        # check for null
+        if len(name) == 0 or not max_players.isnumeric():
+            messages.error(request, "Please enter a name and/or a valid number")
+            return redirect('/')
+
         game = Game.objects.create(name=name, max_players=max_players, game_admin=request.user)
         return redirect(f'/game/{game.id}/')
 

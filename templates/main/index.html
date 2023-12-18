@@ -16,6 +16,10 @@
 <span>Just a simple project for a nice game.</span>
 {% if user.is_authenticated %}
     <div>
+        <a href="/game/new/">New game</a>
+    </div>
+    <br>
+    <div>
         The games:<br>
         {% for game in games %}
             <a href="/game/{{ game.id }}/">{{ game.name }}</a><br>

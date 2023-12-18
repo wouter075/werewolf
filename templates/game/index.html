@@ -6,6 +6,8 @@
 </head>
 <body>
 <h1>{{ game.name }}</h1>
+<hr>
+Yes, this needs to go!
 <table>
     <thead>
         <tr>
@@ -14,14 +16,17 @@
         </tr>
     </thead>
     <tbody>
-        <tr>
-            {% for player in game.players.all %}
-                <td>{{ player.username }}</td>
-                <td>{{ player.profile.get_game_role_display }}</td>
-            {% endfor %}
-        </tr>
+        {% for player in game.players.all %}
+            <tr>
+            <td>{{ player.username }}</td>
+            <td>{{ player.profile.get_game_role_display }}</td>
+            </tr>
+        {% endfor %}
     </tbody>
 </table>
-
+<hr>
+{% if game.players.count >= 3 %}
+    <a href="">Start game!</a>
+{% endif %}
 </body>
 </html>
